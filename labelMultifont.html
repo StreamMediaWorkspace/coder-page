@@ -7,38 +7,16 @@
     <style type="text/css">#mynetwork { width: 600px; height: 400px; border: 1px solid lightgray; } code { font-size: 15px; } p { max-width: 600px; } .indented { margin-left: 30px; } table { border-collapse: collapse; font-family: sans-serif; } table code { background: #dddddd; } th, td { border: 1px solid #aaaaaa; text-align: center; padding: 5px; font-weight: normal; }</style></head>
   
   <body>
-    <div id="drag1" draggable="true" ondragstart="drag(event)">drag</div>
+    <input type="button" style="width:80px;height:30px;" draggable="true" ondragstart="drag(event)" value="drag"></input>
     <div id="mynetwork" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
     <pre id="eventSpan"></pre>
     <script type="text/javascript">
 
       //定义需要生成的节点
-      var allnodes = [{
-        id: 1,
-        label: 'Coder1',
-        margin: {
-          top: 10,
-          right: 20,
-          bottom: 10,
-          left: 30
-        },
-        x: -120,
-        y: -100
-      },
-      {
-        id: 2,
-        font: {
-          multi: true
-        },
-        label: 'property1',
-        x: 0,
-        y: -120,
-        color: 'rgb(255,168,7)'
-      },
-      {
-        id: 3,
-        font: {
-          multi: 'html',
+      var allnodes = [
+	  { id: 1, label: 'Coder1', margin: {top: 10, right: 20, bottom: 10, left: 30}, x: -120, y: -100 },
+      { id: 2, font: { multi: true}, label: 'property1', x: 0, y: -120, color: 'rgb(255,168,7)'},
+      { id: 3, font: { multi: 'html',
           size: 10
         },
         label: 'property2',
@@ -185,7 +163,8 @@
       }
 
       function drag(ev) {
-        ev.dataTransfer.setData("Text", ev.target.id);
+        ev.dataTransfer.setData("width", ev.target.style.width);
+		ev.dataTransfer.setData("height", ev.target.style.height);
       }
 
       function drop(ev) {
@@ -197,28 +176,21 @@
 
       var id = 7;
       function addNode(e) {
+	    //e.preventDefault();
+        var w = e.dataTransfer.getData("width");
+		var h = e.dataTransfer.getData("height");
+		
+		console.log("iiiii", w, h);
+		
         var evt = e || event;
         console.log(e);
         //获取鼠标的位置
-        var left = evt.clientX - e.target.width / 2;
+        //var left = evt.clientX - (e.target.width + w) / 2;
+        //var top = evt.clientY - (e.target.width + h) / 2;
+		var left = evt.clientX - e.target.width / 2;
         var top = evt.clientY - e.target.width / 2;
-        nodes.add({
-          id: id,
-          font: {
-            multi: 'html',
-            size: 20
-          },
-          margin: {
-            top: 10,
-            right: 20,
-            bottom: 10,
-            left: 30
-          },
-          label: 'coder3',
-          x: left,
-          y: top,
-          color: 'rgb(255,168,7)'
-        });
+		
+        nodes.add({ id: id, font: { multi: 'html', size: 20 }, margin: { top: 10, right: 20, bottom: 10, left: 30 }, label: 'coder3', x: left, y: top, color: 'rgb(255,168,7)'});
         id++;
         network.enableEditMode();
         network.addNodeMode();
