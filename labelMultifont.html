@@ -187,14 +187,32 @@
         //获取鼠标的位置
         //var left = evt.clientX - (e.target.width + w) / 2;
         //var top = evt.clientY - (e.target.width + h) / 2;
-		var left = evt.clientX - e.target.width / 2;
-        var top = evt.clientY - e.target.width / 2;
+		var left = evt.clientX - e.target.width / 2 - parseInt(w) / 2;
+        var top = evt.clientY - e.target.width / 2;// + parseInt(h) / 2;
 		
         nodes.add({ id: id, font: { multi: 'html', size: 20 }, margin: { top: 10, right: 20, bottom: 10, left: 30 }, label: 'coder3', x: left, y: top, color: 'rgb(255,168,7)'});
         id++;
         network.enableEditMode();
         network.addNodeMode();
       }
+	  
+	  function getX(obj){
+		var parObj=obj;  
+		var left=obj.offsetLeft;  
+	 	while(parObj=parObj.offsetParent){  
+	  		left+=parObj.offsetLeft;  
+		}  
+ 		return left;  
+	}  
+  
+	function getY(obj){  
+		var parObj=obj;  
+		var top=obj.offsetTop;  
+		while(parObj = parObj.offsetParent){  
+	 		top+=parObj.offsetTop;  
+	 	}  
+	 return top;  
+	}
 </script>
 
 </html>
