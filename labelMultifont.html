@@ -174,7 +174,7 @@
         addNode(ev);
       }
 
-      var id = 7;
+      //var id = 7;
       function addNode(e) {
 	    //e.preventDefault();
         var w = e.dataTransfer.getData("width");
@@ -189,9 +189,9 @@
         //var top = evt.clientY - (e.target.width + h) / 2;
 		var left = evt.clientX - e.target.width / 2 - parseInt(w) / 2;
         var top = evt.clientY - e.target.width / 2;// + parseInt(h) / 2;
-		
-        nodes.add({ id: id, font: { multi: 'html', size: 20 }, margin: { top: 10, right: 20, bottom: 10, left: 30 }, label: 'coder3', x: left, y: top, color: 'rgb(255,168,7)'});
-        id++;
+		obj = { id: allnodes.length + 1, font: { multi: 'html', size: 20 }, margin: { top: 10, right: 20, bottom: 10, left: 30 }, label: 'coder3', x: left, y: top, color: 'rgb(255,168,7)'};
+		allnodes.push(obj);
+        nodes.add(obj);
         network.enableEditMode();
         network.addNodeMode();
       }
